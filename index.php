@@ -5,6 +5,7 @@ $password = 'xx0YWWEe';
 try {
     $dbh = new PDO($dsn, $user, $password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected Successfully";
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
 }
