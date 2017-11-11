@@ -15,7 +15,7 @@ try {
     echo 'Connection failed: ' . $e->getMessage();
 }
 
-//printing the number of records where is is less than six
+//printing the number of records where it is less than six
 $sql = "SELECT * FROM accounts WHERE id <6";
 $result = $dbh->query($sql);
 if ($dbh->query($sql){
