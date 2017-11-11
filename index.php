@@ -17,9 +17,9 @@ try {
 
 //printing the number of records where it is less than six
 $sql = "SELECT * FROM accounts WHERE id <6";
-$result = $dbh->query($sql);
-if ($dbh->query($sql){
-$num_row = $result->fetchColumn(); {
+$statement = $dbh->prepare($sql);
+$statement =->bindValue(':id');
+$num_row = $statement->fetchColumn(); {
     echo $num_row . " records returned<br>";}
 
 ?>
