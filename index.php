@@ -16,10 +16,41 @@ try {
 }
 
 //printing the number of records where it is less than six
-$sql = "SELECT * FROM accounts WHERE id <6";
-$statement = $dbh->prepare($sql);
-$statement =->bindValue(':id');
-$num_row = $statement->fetchColumn(); {
-    echo $num_row . " records returned<br>";}
+$sql = $dbh->prepare('SELECT * FROM accounts WHERE id <6');
+$sql->execute();
+echo $sql->rowCount() ." records returned<br>";
 
+//setting up the html table
+echo "<table style='border: solid 1px black;'>";
+echo "<tr><th>id</th><th>email</th><th>fname</th><th>lname</th><th>phone</th><th>birthday</th><th>gender</th><th>password</th>";
+
+class TableRows extends RecursiveIteratorIterator {
+    function __construct($it) {
+        parent::__construct($it, self::LEAVES_ONLY);
+    }
+    function current() {
+        return "<td style='width; 150px; border: 1px solid black;'>" . parent::current(). "</td>";
+    }
+    function beginChildren() {
+        echo "<tr>";
+    }
+    function endChildren() {
+        echo "</tr>" . "\n";
+    }
+
+}
+
+try {
+
+//set the resulting array to associative
+    $result = $sql->setFetchMode(PDO::FETCH_ASSOC);
+
+    foreach(new TableRows(new RecursiveArrayIterator($sql->fetchALL())) as $k=>$v) {
+        echo $v; }
+}
+
+catch(PDOException $e) {
+    echo "Error:" . $e->getMessage();
+}
+echo "</table>";
 ?>
